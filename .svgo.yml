@@ -4,7 +4,6 @@
 # full: true
 
 plugins:
-
   # - name
   #
   # or:
@@ -68,5 +67,5 @@ plugins:
 # @see https://github.com/svg/svgo/blob/master/lib/svgo/js2svg.js#L6 for more config options
 #
 js2svg:
- pretty: true
- indent: '  '
+  pretty: true
+  indent: '  '

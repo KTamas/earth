@@ -2,7 +2,9 @@ const color = '#14B7F4';
 
 const map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/cheeaun/ckbm8ln3w15d01ilp38k7xll8',
+  // style: 'mapbox://styles/cheeaun/ckbm8ln3w15d01ilp38k7xll8',
+  // style: 'mapbox://styles/mapbox/streets-v11',
+  style: 'mapbox://styles/mapbox/dark-v10',
   maxZoom: 16,
   logoPosition: 'top-right',
   attributionControl: false,
@@ -62,7 +64,7 @@ class LayersControl {
           linesButton.classList.add('active');
         }
       },
-      false,
+      false
     );
 
     container.appendChild(linesButton);
@@ -188,7 +190,7 @@ map.once('styledata', () => {
         (e) => {
           map.fitBounds(bounds, { padding: 150 });
         },
-        false,
+        false
       );
       $button.innerHTML = `
         <img src="data/countries/${cc}.svg" intrinsicsize="50x50" width="50" height="50" alt="">
@@ -288,7 +290,7 @@ map.once('styledata', () => {
         'circle-stroke-opacity': 0.1,
       },
     },
-    labelLayerId,
+    labelLayerId
   );
 
   map.once('load', () => {
@@ -338,7 +340,7 @@ map.once('styledata', () => {
         'line-opacity': 0.3,
       },
     },
-    labelLayerId,
+    labelLayerId
   );
 
   // TODO: filter by date
@@ -354,7 +356,7 @@ map.once('styledata', () => {
 
   const err = (e) => {
     const reload = confirm(
-      'Oops, the map is acting weird now. Reload this page? 😅',
+      'Oops, the map is acting weird now. Reload this page? 😅'
     );
     if (reload) location.reload();
     console.error(e);

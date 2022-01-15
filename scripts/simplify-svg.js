@@ -3,7 +3,7 @@ const path = require('path');
 
 const countriesDir = path.resolve(__dirname, '../data/countries/');
 const files = fs.readdirSync(countriesDir);
-files.forEach(file => {
+files.forEach((file) => {
   if (!/\.svg$/.test(file)) return;
   console.log(`Simplifying ${file}...`);
   const filePath = path.resolve(countriesDir, file);
@@ -13,7 +13,7 @@ files.forEach(file => {
   paper.setup();
 
   let onePath = new paper.CompoundPath('');
-  const newSVG = svg.replace(/\sd="([^"]+)"/ig, (match, pathData) => {
+  const newSVG = svg.replace(/\sd="([^"]+)"/gi, (match, pathData) => {
     const path = new paper.CompoundPath(pathData);
     onePath = onePath.unite(path);
   });
@@ -29,5 +29,9 @@ files.forEach(file => {
   const outputPath = path.resolve(__dirname, '../data/countries/' + file);
   fs.writeFileSync(outputPath, optimizedSVG);
 
-  console.log(`Simplified ${(svg.length/1024).toPrecision(2)}KB -> ${(optimizedSVG.length/1024).toPrecision(2)}KB\n`);
+  console.log(
+    `Simplified ${(svg.length / 1024).toPrecision(2)}KB -> ${(
+      optimizedSVG.length / 1024
+    ).toPrecision(2)}KB\n`
+  );
 });
