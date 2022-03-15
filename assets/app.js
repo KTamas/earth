@@ -295,7 +295,7 @@ map.once('styledata', () => {
 
   map.on('click', 'checkins', (e) => {
     const coordinates = e.features[0].geometry.coordinates.slice();
-    const description = `${e.features[0].properties.name}<br>${
+    const description = `<b>${e.features[0].properties.name}</b><br>${
       e.features[0].properties.shout ?? ''
     }`;
     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
