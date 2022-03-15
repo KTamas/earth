@@ -293,6 +293,17 @@ map.once('styledata', () => {
     labelLayerId
   );
 
+  map.on('click', 'checkins', (e) => {
+    const coordinates = e.features[0].geometry.coordinates.slice();
+    const description = `${e.features[0].properties.name}<br>${
+      e.features[0].properties.shout ?? ''
+    }`;
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+    new mapboxgl.Popup().setLngLat(coordinates).setHTML(description).addTo(map);
+  });
+
   map.once('load', () => {
     requestAnimationFrame(() => {
       renderNumber($infoCheckins, checkinsCount);

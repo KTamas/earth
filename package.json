@@ -27,6 +27,7 @@
   "browserslist": [
     "last 2 Chrome versions"
   ],
+  "type": "module",
   "devDependencies": {
     "dotenv": "^12.0",
     "got": "^12.0",

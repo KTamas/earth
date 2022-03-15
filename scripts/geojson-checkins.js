@@ -1,9 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-const data = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '../data/checkins.json'))
-);
+const data = JSON.parse(fs.readFileSync(path.resolve('./data/checkins.json')));
 
 function tzDate(d, offset) {
   // date object, timezone offset in minutes
@@ -15,7 +13,7 @@ function tzDate(d, offset) {
 const geojson = {
   type: 'FeatureCollection',
   features: data.map(
-    ({ id, name, lng, lat, country, cc, createdAt, timeZoneOffset }) => {
+    ({ id, name, lng, lat, country, cc, createdAt, timeZoneOffset, shout }) => {
       const _datetime = tzDate(new Date(createdAt * 1000), -timeZoneOffset);
       const year = '' + _datetime.getFullYear();
       const month = ('' + (_datetime.getMonth() + 1)).padStart(2, '0');
@@ -27,6 +25,8 @@ const geojson = {
           date: parseInt(year + month + day, 10),
           country,
           cc,
+          name,
+          shout,
         },
         geometry: {
           type: 'Point',
@@ -37,10 +37,10 @@ const geojson = {
   ),
 };
 
-const FILE = path.resolve(__dirname, '../data/checkins.geojson');
+const FILE = path.resolve('./data/checkins.geojson');
 console.log('DONE: writing file ' + FILE);
 fs.writeFileSync(FILE, JSON.stringify(geojson, null, '\t'));
 
-const MIN_FILE = path.resolve(__dirname, '../data/checkins.min.json');
+const MIN_FILE = path.resolve('./data/checkins.min.json');
 console.log('DONE: writing file ' + MIN_FILE);
 fs.writeFileSync(MIN_FILE, JSON.stringify(geojson));

@@ -1,7 +1,8 @@
-require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
-const got = require('got');
+import dotenv from 'dotenv';
+dotenv.config();
+import fs from 'fs';
+import path from 'path';
+import got from 'got';
 
 const LIMIT = 250;
 
@@ -25,7 +26,7 @@ const start = (offset = 0) => {
 
       if (!items || !items.length) {
         console.log('No more items.');
-        const FILE = path.resolve(__dirname, '../data/checkins.json');
+        const FILE = path.resolve('./data/checkins.json');
         console.log('DONE: writing file ' + FILE);
         fs.writeFileSync(FILE, JSON.stringify(checkins, null, '\t'));
         return;
@@ -37,12 +38,12 @@ const start = (offset = 0) => {
 
       items.forEach((item, i) => {
         try {
-          const { venue, createdAt, timeZoneOffset } = item;
+          const { venue, createdAt, timeZoneOffset, shout } = item;
           if (!venue) return;
           const { id, name, location } = venue;
           if (!location) return;
           const { lat, lng, country, cc } = location;
-          const itemDate = new Date(createdAt * 1000);
+          // const itemDate = new Date(createdAt * 1000);
           checkins.push({
             id,
             name,
@@ -52,6 +53,7 @@ const start = (offset = 0) => {
             cc,
             createdAt,
             timeZoneOffset,
+            shout,
           });
         } catch (e) {
           console.warn(item);
